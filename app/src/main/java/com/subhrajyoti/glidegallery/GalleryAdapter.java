@@ -35,8 +35,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
         Glide.with(holder.galleryImageView.getContext()).
                 load(imageModel.getUrl())
-                .thumbnail(0.5f)
-                .override(200,200)
+               // .thumbnail(0.5f)
+                //.override(200,200)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.galleryImageView);
 
