@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkbackground">
-    <android.support.v4.view.ViewPager
-        android:id="@+id/animal_view_pager"
+    <com.subhrajyoti.glidegallery.HackyViewPager
+        android:id="@+id/photo_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
