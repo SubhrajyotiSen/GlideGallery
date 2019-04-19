@@ -1,8 +1,9 @@
 package com.subhrajyoti.glidegallery;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.transition.TransitionInflater;
@@ -11,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
 
 
@@ -45,31 +46,30 @@ public class ImageDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_image_detail, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         final ImageModel image = getArguments().getParcelable(EXTRA_IMAGE);
         String transitionName = getArguments().getString(EXTRA_TRANSITION_NAME);
 
-        final PhotoView imageView = (PhotoView) view.findViewById(R.id.detail_image);
+        final PhotoView imageView = view.findViewById(R.id.detail_image);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView.setTransitionName(transitionName);
         }
 
-        Glide.with(getActivity())
+        Glide.with(getContext())
                 .load(image.getUrl())
-                .asBitmap()
-                .into(new SimpleTarget<Bitmap>() {
+                .into(new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         startPostponedEnterTransition();
-                        imageView.setImageBitmap(resource);
+                        imageView.setImageDrawable(resource);
                     }
                 });
 
